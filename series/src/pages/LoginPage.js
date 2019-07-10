@@ -43,14 +43,43 @@ export default class LoginPage extends React.Component {
 		this.setState({ isLoading: true, message: '' })
 		const { email, password } = this.state
 
+		const loginUserSuccess = user => {
+			this.setState({ message: 'Sucesso!' })
+			this.props.navigation.navigate('Main')
+		}
+
+		const loginUserFailed = error => {
+			this.setState({ message: this.getMessageByErroCode(error.code) })
+		}
+
 		firebase.auth().signInWithEmailAndPassword(email, password)
 			.then(user => {
-				// console.log('usuario autenticado!', user)
-				this.setState({ message: 'Sucesso!' })
+				console.log('usuario autenticado!', user)
+				loginUserSuccess()
 			})
 			.catch(error => {
 				console.log('falhou!', error)
-				this.setState({ message: this.getMessageByErroCode(error.code) })
+				if (error.code === 'auth/user-not-found') {
+					Alert.alert(
+						'Usuário não encontrado',
+						'Deseja criar um cadastro com as informações inseridas?',
+						[{
+							text: 'Não',
+							onPress: () => console.log('Usuário não quer criar'),
+							style: 'cancel' // IOS
+						}, {
+							text: 'Sim',
+							onPress: () => {
+								firebase.auth().createUserWithEmailAndPassword(email, password)
+									.then(user => loginUserSuccess())
+									.catch(error => loginUserFailed())
+							}
+						}],
+						{ cancelable: false }
+					)
+				} else {
+					loginUserFailed(error)
+				}
 			})
 			.finally(() => {
 				this.setState({ isLoading: false })
