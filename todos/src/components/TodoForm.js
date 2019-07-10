@@ -20,6 +20,7 @@ class TodoForm extends React.Component {
 
   onPress() {
     this.props.addTodo(this.state.text)
+    this.setState({ text: '' })
   }
 
   render() {
@@ -55,7 +56,4 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = null
-const mapDispatchToProps = { addTodo }
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodoForm)
+export default connect(null, { addTodo })(TodoForm)
