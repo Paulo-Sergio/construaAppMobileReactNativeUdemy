@@ -1,0 +1,14 @@
+-> install create-react-native-app (versão antiga, recomendado instalar o expo-cli)
+npm install --global create-react-native-app
+
+-> install expo-cli
+npm install --global expo-cli
+
+-> criando projeto
+expo init <nome_do_projeto>
+
+-> startando o projeto (pegar qrcode)
+yarn start
+
+-> rodando projeto no android (dentro da pasta do projeto)
+yarn run android
