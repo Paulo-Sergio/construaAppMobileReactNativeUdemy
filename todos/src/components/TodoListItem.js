@@ -30,13 +30,6 @@ const styles = StyleSheet.create({
   },
   lineThrough: {
     textDecorationLine: 'line-through'
-  },
-  avatar: {
-    aspectRatio: 1,
-    flex: 1,
-
-    marginLeft: 15,
-    borderRadius: 50
   }
 })
 
