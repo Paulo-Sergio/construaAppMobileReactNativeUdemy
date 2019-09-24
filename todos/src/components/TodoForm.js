@@ -8,12 +8,11 @@ import { addTodo, setTodoText } from '../actions'
 class TodoForm extends React.Component {
 
   onChangeText(text) {
-    this.props.setTodoText
-    this.setState({ text })
+    this.props.setTodoText(text)
   }
 
   onPress() {
-    this.props.addTodo(this.state.text)
+    this.props.addTodo(this.props.todo.text)
   }
 
   render() {

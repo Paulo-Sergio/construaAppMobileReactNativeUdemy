@@ -12,6 +12,7 @@ const TodoList = (props) => (
         key={todo.id}
         todo={todo}
         onPressTodo={() => props.toggleTodo(todo.id)}
+        onLongPressTodo={() => console.log(todo)}
       />
     ))}
   </View>
