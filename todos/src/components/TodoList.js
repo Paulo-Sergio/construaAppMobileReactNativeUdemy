@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from 'react-native'
 import { connect } from 'react-redux'
 
 import TodoListItem from './TodoListItem'
-import { toggleTodo } from '../actions'
+import { toggleTodo, setEditingTodo } from '../actions'
 
 const TodoList = (props) => (
   <View>
@@ -12,7 +12,7 @@ const TodoList = (props) => (
         key={todo.id}
         todo={todo}
         onPressTodo={() => props.toggleTodo(todo.id)}
-        onLongPressTodo={() => console.log(todo)}
+        onLongPressTodo={() => props.setEditingTodo(todo)}
       />
     ))}
   </View>
@@ -25,4 +25,4 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   todos: state.todoListReducer
 })
-export default connect(mapStateToProps, { toggleTodo })(TodoList)
+export default connect(mapStateToProps, { toggleTodo, setEditingTodo })(TodoList)

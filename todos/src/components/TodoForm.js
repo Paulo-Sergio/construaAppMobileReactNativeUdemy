@@ -3,7 +3,7 @@ import { StyleSheet, View, Button } from 'react-native'
 import { connect } from 'react-redux'
 
 import Input from './Input'
-import { addTodo, setTodoText } from '../actions'
+import { addTodo, setTodoText, updateTodo } from '../actions'
 
 class TodoForm extends React.Component {
 
@@ -12,7 +12,12 @@ class TodoForm extends React.Component {
   }
 
   onPress() {
-    this.props.addTodo(this.props.todo.text)
+    if (this.props.todo.id) {
+      this.props.updateTodo(this.props.todo)
+    } else {
+      this.props.addTodo(this.props.todo.text)
+    }
+
   }
 
   render() {
@@ -27,7 +32,7 @@ class TodoForm extends React.Component {
 
         <View style={styles.buttonContainer}>
           <Button
-            title="add"
+            title={this.props.todo.id ? "save" : "add"}
             onPress={() => this.onPress()}
           />
         </View>
@@ -52,4 +57,4 @@ const mapStateToProps = state => ({
   todo: state.editingTodoReducer
 })
 
-export default connect(mapStateToProps, { addTodo, setTodoText })(TodoForm)
+export default connect(mapStateToProps, { addTodo, setTodoText, updateTodo })(TodoForm)
